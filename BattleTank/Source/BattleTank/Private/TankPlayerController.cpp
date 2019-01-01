@@ -2,6 +2,6 @@
 
 #include "TankPlayerController.h"
 
-ATank* ATankPlayerController::GetControllerTank() const {
-	return Cast<ATank>(GetOwner());
+ATank* ATankPlayerController::GetControlledTank() const {
+	return Cast<ATank>(GetPawn());
 }
