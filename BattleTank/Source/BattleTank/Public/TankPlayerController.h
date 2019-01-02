@@ -20,5 +20,6 @@ public:
 	void Tick(float) override;
 private:
 	ATank* GetControlledTank() const;
-	void AimTowardCorsshair();
+	void AimTowardCrosshair();
+	bool GetSightRayHitLocation(OUT FVector& HitLocation) const;
 };
