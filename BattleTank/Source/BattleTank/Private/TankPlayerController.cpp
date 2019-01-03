@@ -1,7 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "TankPlayerController.h"
-
+#include "Engine/World.h"
+#include "Engine/EngineTypes.h"
+#include "DrawDebugHelpers.h"
 
 void ATankPlayerController::BeginPlay() {
 	Super::BeginPlay();
@@ -41,10 +43,16 @@ bool ATankPlayerController::GetSightRayHitLocation(OUT FVector& HitLocation) con
 	int32 ViewportSizeX, ViewportSizeY;
 	GetViewportSize(ViewportSizeX, ViewportSizeY);
 	FVector2D ScreenLocation = FVector2D(ViewportSizeX * CrosshairXLocation, ViewportSizeY * CrosshairYLocation);
-	UE_LOG(LogTemp, Warning, TEXT("Screen location:%s"), *(ScreenLocation.ToString()));
 	FVector CameraWorldDirection;
 	if (GetLookDirection(ScreenLocation, CameraWorldDirection)) {
-		UE_LOG(LogTemp, Warning, TEXT("CameraWorldDirection :%s"), *(CameraWorldDirection.ToString()));
+		FHitResult HitResult;
+		if (GetLookVectorHitLocation(CameraWorldDirection, HitResult)) {
+			UE_LOG(LogTemp, Warning, TEXT("Hit: %s location: %s"), *(HitResult.GetActor()->GetName()), *(HitResult.Location.ToString()));
+		}
+		else {
+			UE_LOG(LogTemp, Warning, TEXT("missing"));
+		}
+
 	}
 	
 	
@@ -61,6 +69,36 @@ bool ATankPlayerController::GetLookDirection(FVector2D ScreenLocation, FVector& 
 		ScreenLocation.Y, 
 		CameraWorldLocation, 
 		CameraWorldDirection
+	);
+}
+
+bool ATankPlayerController::GetLookVectorHitLocation(FVector Direction,FHitResult& HitResult) const{
+	FVector Start = PlayerCameraManager->GetCameraLocation();
+	FVector End =  Start + (LineTraceRange * Direction);
+	
+	DrawDebugLine(
+		GetWorld(),
+		Start,
+		End,
+		FColor(255, 0, 0),
+		false,
+		1.f,
+		-1,
+		10
+	);
+
+	FCollisionQueryParams CollisionQueryParams = FCollisionQueryParams(
+		EName::NAME_None,
+		false,	
+		GetControlledTank()
+	);
+
+	return GetWorld()->LineTraceSingleByChannel(
+		HitResult,
+		Start,
+		End,
+		ECollisionChannel::ECC_Visibility,
+		CollisionQueryParams
 	);
 }
 
