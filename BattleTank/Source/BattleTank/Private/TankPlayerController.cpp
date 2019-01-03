@@ -42,8 +42,15 @@ bool ATankPlayerController::GetSightRayHitLocation(OUT FVector& HitLocation) con
 	GetViewportSize(ViewportSizeX, ViewportSizeY);
 	FVector2D ScreenLocation = FVector2D(ViewportSizeX * CrosshairXLocation, ViewportSizeY * CrosshairYLocation);
 	UE_LOG(LogTemp, Warning, TEXT("Screen location:%s"), *(ScreenLocation.ToString()));
+
 	// De-poject the screen projection of corsshair to a world direction.
+	FVector CameraWorldLocation;
+	FVector CameraWorldDirection;
+	DeprojectScreenPositionToWorld(ScreenLocation.X, ScreenLocation.Y, CameraWorldLocation, CameraWorldDirection);
+	UE_LOG(LogTemp, Warning, TEXT("World location:%s, World direction:%s"), *(CameraWorldLocation.ToString()), *(CameraWorldDirection.ToString()));
+	
 	// Line-Tace along that look direction, and see what we hit( up to max range).
+
 	return true;
 }
 
