@@ -6,6 +6,7 @@
 #include "GameFramework/Pawn.h"
 
 void ATankAIController::BeginPlay() {
+	Super::BeginPlay();
 	ATank* Tank = GetControlledTank();
 
 	if (Tank) {
@@ -27,6 +28,20 @@ ATank* ATankAIController::GetControlledTank() const {
 	return Cast<ATank>(GetPawn());
 }
 
+void ATankAIController::Tick(float DeltaTime) {
+	Super::Tick(DeltaTime);
+	
+	auto PlayerTank = GetPlayerTank();
+
+	if (PlayerTank) {
+		GetControlledTank()->AimAt(PlayerTank->GetActorLocation());
+	}
+	else {
+		UE_LOG(LogTemp, Warning, TEXT("cant get any player tank."));
+	}
+		
+}
+
 ATank * ATankAIController::GetPlayerTank() const {
 	APawn* PlayerPawn = GetWorld()->GetFirstPlayerController()->GetPawn();
 	
@@ -36,6 +51,4 @@ ATank * ATankAIController::GetPlayerTank() const {
 	else {
 		return nullptr;
 	}
-
-
 }
