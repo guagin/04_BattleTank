@@ -64,12 +64,12 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LanchSpeed) {
 	if (bHaveAimSolution) {
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
 		/*UE_LOG(LogTemp, Warning, TEXT("%s Aiming at %s"), *(TankName),*AimDirection.ToString());*/
-		MoveBarrelToWard(AimDirection);
+		MoveBarrelToward(AimDirection);
 
 	}
 }
 
-void UTankAimingComponent::MoveBarrelToWard(FVector AimDirection) {
+void UTankAimingComponent::MoveBarrelToward(FVector AimDirection) {
 	// Work-out different between aimdirection and current barrel rotation.
 	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
 	auto AimAsRotator = AimDirection.Rotation();

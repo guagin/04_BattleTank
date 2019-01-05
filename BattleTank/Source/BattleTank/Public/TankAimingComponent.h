@@ -6,8 +6,10 @@
 #include "Components/ActorComponent.h"
 #include "TankAimingComponent.generated.h"
 
-class UTankBarrel; // Forward Delaration.
+// Forward Delaration.
+class UTankBarrel; 
 
+// Hold barrel's property and Elevate barrel.
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BATTLETANK_API UTankAimingComponent : public UActorComponent
 {
@@ -29,5 +31,5 @@ public:
 	// TODO: Add set turrent.
 private:
 	UTankBarrel* Barrel = nullptr;
-	void MoveBarrelToWard(FVector);
+	void MoveBarrelToward(FVector);
 };
