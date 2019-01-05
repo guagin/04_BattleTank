@@ -4,6 +4,7 @@
 #include "Engine/World.h"
 #include "GameFramework/PlayerController.h"
 #include "GameFramework/Pawn.h"
+#include "TankBarrel.h"
 
 void ATankAIController::BeginPlay() {
 	Super::BeginPlay();
@@ -32,9 +33,9 @@ void ATankAIController::Tick(float DeltaTime) {
 	Super::Tick(DeltaTime);
 	
 	auto PlayerTank = GetPlayerTank();
-
-	if (PlayerTank) {
-		GetControlledTank()->AimAt(PlayerTank->GetActorLocation());
+	auto PlayerBarrel = PlayerTank->FindComponentByClass<UTankBarrel>(); // TODO: use another way to find turrent.
+	if (PlayerBarrel) {
+		GetControlledTank()->AimAt(PlayerBarrel->GetAttachParent()->GetComponentLocation());
 	}
 	else {
 		UE_LOG(LogTemp, Warning, TEXT("cant get any player tank."));
