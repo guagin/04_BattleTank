@@ -7,6 +7,5 @@ void UTankTurret::Rotate(float RelativeSpeed) {
 	auto RotationChange = RelativeSpeed * MaxDegreePerSecond * GetWorld()->DeltaTimeSeconds;
 	auto RawRotation = RelativeRotation.Yaw + RotationChange;
 	auto TankName = GetOwner()->GetName();
-	UE_LOG(LogTemp, Warning, TEXT("%s RawRotation:%f"), *TankName, RawRotation);
 	SetRelativeRotation(FRotator(0, RawRotation, 0));
 }

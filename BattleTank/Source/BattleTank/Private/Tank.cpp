@@ -42,3 +42,7 @@ void ATank::SetTurretReference(UTankTurret* UTankTurret) {
 	TankAimingComponent->SetTurretReference(UTankTurret);
 }
 
+void ATank::Fire() {
+	UE_LOG(LogTemp, Warning, TEXT("Fire Called"));
+}
+

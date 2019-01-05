@@ -44,7 +44,6 @@ bool ATankPlayerController::GetSightRayHitLocation(OUT FVector& HitLocation) con
 	if (GetLookDirection(ScreenLocation, CameraWorldDirection)) {
 		FHitResult HitResult;
 		if (GetLookVectorHitLocation(CameraWorldDirection, HitResult)) {
-			//UE_LOG(LogTemp, Warning, TEXT("Hit: %s location: %s"), *(HitResult.GetActor()->GetName()), *(HitResult.Location.ToString()));
 			HitLocation = HitResult.Location;
 		}
 		else {
