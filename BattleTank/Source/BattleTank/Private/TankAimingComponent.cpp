@@ -3,6 +3,7 @@
 #include "TankAimingComponent.h"
 #include "Tank.h"
 #include "TankBarrel.h"
+#include "TankTurret.h"
 #include "Engine/Classes/Components/StaticMeshComponent.h"
 #include "Engine/Classes/Kismet/GameplayStatics.h"
 #include "Engine/Classes/Kismet/GameplayStaticsTypes.h"
@@ -65,7 +66,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LanchSpeed) {
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
 		/*UE_LOG(LogTemp, Warning, TEXT("%s Aiming at %s"), *(TankName),*AimDirection.ToString());*/
 		MoveBarrelToward(AimDirection);
-
+		MoveTurrenToWard(AimDirection);
 	}
 }
 
@@ -78,6 +79,18 @@ void UTankAimingComponent::MoveBarrelToward(FVector AimDirection) {
 	Barrel->Elevate(DeltaRotator.Pitch); 
 }
 
+void UTankAimingComponent::MoveTurrenToWard(FVector AimDirection) {
+	auto TurretRotator = Turret->GetForwardVector().Rotation();
+	auto AimAsRotator = AimDirection.Rotation();
+	auto DeltaRotator = AimAsRotator - TurretRotator;
+	UE_LOG(LogTemp, Warning, TEXT("DeltaRotator.Yaw:%f"), DeltaRotator.Yaw);
+	Turret->Rotate(DeltaRotator.Yaw);
+}
+
 void UTankAimingComponent::SetBarrelReference(UTankBarrel* BarrelToSet) {
 	Barrel = BarrelToSet;	
+}
+
+void UTankAimingComponent::SetTurretReference(UTankTurret* TurretToSet) {
+	Turret = TurretToSet;
 }

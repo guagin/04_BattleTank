@@ -8,6 +8,7 @@
 
 // Forward Delaration.
 class UTankBarrel; 
+class UTankTurret;
 class UTankAimingComponent;
 
 UCLASS()
@@ -26,11 +27,12 @@ protected:
 	UTankAimingComponent* TankAimingComponent = nullptr;
 
 public:
-	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	void AimAt(FVector HitLocation);
 	UFUNCTION(BlueprintCallable, Category = Setup)
 	void SetBarrelReference(UTankBarrel* Barrel);
+	UFUNCTION(BlueprintCallable, Category = Setup)
+	void SetTurretReference(UTankTurret* Turret);
 private:
 	UPROPERTY(EditAnyWhere, Category = Firing)
 	float LaunchSpeed = 1000;

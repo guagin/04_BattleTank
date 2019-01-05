@@ -8,6 +8,7 @@
 
 // Forward Delaration.
 class UTankBarrel; 
+class UTankTurret;
 
 // Hold barrel's property and Elevate barrel.
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -28,8 +29,10 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	void AimAt(FVector, float);
 	void SetBarrelReference(UTankBarrel*);
-	// TODO: Add set turrent.
+	void SetTurretReference(UTankTurret*);
 private:
 	UTankBarrel* Barrel = nullptr;
 	void MoveBarrelToward(FVector);
+	UTankTurret* Turret = nullptr;
+	void MoveTurrenToWard(FVector);
 };
