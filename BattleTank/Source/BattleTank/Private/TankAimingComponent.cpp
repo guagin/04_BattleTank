@@ -3,6 +3,8 @@
 #include "TankAimingComponent.h"
 #include "Tank.h"
 #include "Engine/Classes/Components/StaticMeshComponent.h"
+#include "Engine/Classes/Kismet/GameplayStatics.h"
+#include "Engine/Classes/Kismet/GameplayStaticsTypes.h"
 
 // Sets default values for this component's properties
 UTankAimingComponent::UTankAimingComponent()
@@ -33,11 +35,51 @@ void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
 	// ...
 }
 
-void UTankAimingComponent::AimAt(FVector HitLocation) {
+void UTankAimingComponent::AimAt(FVector HitLocation, float LanchSpeed) {
+	if (!Barrel) {
+		return;
+	}
+	FString TankName = GetOwner()->GetName();
+	FVector OutLaunchVelocity = FVector(0);
+	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
+	FVector EndLocation = HitLocation;
 	
-	FString TankName = (GetOwner()->GetName());
-	auto BarrelLocation = Barrel->GetComponentLocation().ToString();
-	UE_LOG(LogTemp, Warning, TEXT("%s aiming at: %s from %s"), *(TankName), *(HitLocation.ToString()), *BarrelLocation);
+	FCollisionResponseParams ResponseParam; // dafaq it this shit???
+	TArray <AActor*> ActorsToIgnore;
+	bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity(
+		this,
+		OutLaunchVelocity,
+		StartLocation,
+		EndLocation,
+		LanchSpeed,
+		false,
+		0.f,
+		0.f,
+		ESuggestProjVelocityTraceOption::Type::DoNotTrace,
+		ResponseParam,
+		ActorsToIgnore,
+		true
+	);
+	if (bHaveAimSolution) {
+		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
+		/*UE_LOG(LogTemp, Warning, TEXT("%s Aiming at %s"), *(TankName),*AimDirection.ToString());*/
+		MoveBarrelToWard(AimDirection);
+
+	}
+}
+
+void UTankAimingComponent::MoveBarrelToWard(FVector AimDirection) {
+	// Work-out different between aimdirection and current barrel rotation.
+	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
+	auto AimAsRotator = AimDirection.Rotation();
+	auto DeltaRotator = AimAsRotator - BarrelRotator;
+	UE_LOG(LogTemp, Warning, TEXT("AimRsRotator: %s"), *(AimAsRotator.ToString()));
+
+	// Move the barrel the right amount this frame.
+	// Give a max elavation speed, ant the frame time.
+
+	// rotate turrent to the direction by changing Yaw.
+	// rotate barrel to the direction by changing Pitch.
 }
 
 void UTankAimingComponent::SetBarrelReference(UStaticMeshComponent* BarrelToSet) {
