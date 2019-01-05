@@ -2,6 +2,7 @@
 
 #include "TankAimingComponent.h"
 #include "Tank.h"
+#include "TankBarrel.h"
 #include "Engine/Classes/Components/StaticMeshComponent.h"
 #include "Engine/Classes/Kismet/GameplayStatics.h"
 #include "Engine/Classes/Kismet/GameplayStaticsTypes.h"
@@ -73,15 +74,13 @@ void UTankAimingComponent::MoveBarrelToWard(FVector AimDirection) {
 	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
 	auto AimAsRotator = AimDirection.Rotation();
 	auto DeltaRotator = AimAsRotator - BarrelRotator;
-	UE_LOG(LogTemp, Warning, TEXT("AimRsRotator: %s"), *(AimAsRotator.ToString()));
 
-	// Move the barrel the right amount this frame.
-	// Give a max elavation speed, ant the frame time.
+	Barrel->Elevate(5.f); // TODO remove magic number
 
 	// rotate turrent to the direction by changing Yaw.
 	// rotate barrel to the direction by changing Pitch.
 }
 
-void UTankAimingComponent::SetBarrelReference(UStaticMeshComponent* BarrelToSet) {
+void UTankAimingComponent::SetBarrelReference(UTankBarrel* BarrelToSet) {
 	Barrel = BarrelToSet;	
 }

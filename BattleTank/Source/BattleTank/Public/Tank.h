@@ -7,6 +7,8 @@
 #include "TankAimingComponent.h"
 #include "Tank.generated.h"
 
+class UTankBarrel; // Forward Delaration.
+
 UCLASS()
 class BATTLETANK_API ATank : public APawn
 {
@@ -29,7 +31,7 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	void AimAt(FVector HitLocation);
 	UFUNCTION(BlueprintCallable, Category = Setup)
-	void SetBarrelReference(UStaticMeshComponent* Barrel);
+	void SetBarrelReference(UTankBarrel* Barrel);
 private:
 	UPROPERTY(EditAnyWhere, Category = Firing)
 	float LaunchSpeed = 1000;
