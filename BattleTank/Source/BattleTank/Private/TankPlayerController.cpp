@@ -28,7 +28,6 @@ void ATankPlayerController::AimTowardCrosshair(){
 	FVector HitLocation; //Out Parameter.
 
 	if (GetSightRayHitLocation(HitLocation)) {// has side effect. is going to line trace.
-		//UE_LOG(LogTemp, Warning, TEXT("look direction: %s"), *(HitLocation.ToString()));
 		GetControlledTank()->AimAt(HitLocation);
 	}
 
@@ -48,7 +47,7 @@ bool ATankPlayerController::GetSightRayHitLocation(OUT FVector& HitLocation) con
 			HitLocation = HitResult.Location;
 		}
 		else {
-			UE_LOG(LogTemp, Warning, TEXT("missing"));
+			UE_LOG(LogTemp, Warning, TEXT("aiming is missing"));
 		}
 	}
 	
