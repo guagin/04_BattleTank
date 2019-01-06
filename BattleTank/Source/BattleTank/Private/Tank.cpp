@@ -13,7 +13,6 @@ ATank::ATank()
 	PrimaryActorTick.bCanEverTick = false;
 	// No need to portect pointer as added at construction.
 	TankAimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("Aiming Component"));
-
 }
 
 // Called when the game starts or when spawned
@@ -45,13 +44,15 @@ void ATank::SetTurretReference(UTankTurret* UTankTurret) {
 }
 
 void ATank::Fire() {
-	UE_LOG(LogTemp, Warning, TEXT("Fire Called"));
+	
 	if (!Barrel) { return; }
 	// Spawn a projectile at the socket location of barrel.
-	GetWorld()->SpawnActor<AProjectile>(
+	auto Projectile = GetWorld()->SpawnActor<AProjectile>(
 		ProjectileBlueprint,
 		Barrel->GetSocketLocation(FName("Projectile")),
 		Barrel->GetSocketRotation(FName("Projectile"))
 	);
+
+	Projectile->LaunchProjectile(LaunchSpeed);
 }
 

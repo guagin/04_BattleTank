@@ -26,6 +26,7 @@ protected:
 	virtual void BeginPlay() override;
 	UPROPERTY(EditAnyWhere)
 	UTankAimingComponent* TankAimingComponent = nullptr;
+	
 
 public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
@@ -39,7 +40,7 @@ public:
 	void AimAt(FVector HitLocation);
 private:
 	UPROPERTY(EditAnyWhere, Category = Firing)
-	float LaunchSpeed = 1000;
+	float LaunchSpeed = 4000;
 
 	UPROPERTY(EditAnyWhere, Category = Setup)
 	TSubclassOf<AProjectile> ProjectileBlueprint;
