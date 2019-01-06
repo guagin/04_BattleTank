@@ -28,13 +28,14 @@ protected:
 
 public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-	void AimAt(FVector HitLocation);
+	
 	UFUNCTION(BlueprintCallable, Category = Setup)
 	void SetBarrelReference(UTankBarrel* Barrel);
 	UFUNCTION(BlueprintCallable, Category = Setup)
 	void SetTurretReference(UTankTurret* Turret);
-	UFUNCTION(BlueprintCallable, Category = Setup)
+	UFUNCTION(BlueprintCallable, Category = Firing)
 	void Fire();
+	void AimAt(FVector HitLocation);
 private:
 	UPROPERTY(EditAnyWhere, Category = Firing)
 	float LaunchSpeed = 1000;
