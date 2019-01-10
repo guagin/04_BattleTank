@@ -19,5 +19,5 @@ public:
 
 	// Max force per trank, in Newtons.
 	UPROPERTY(EditDefaultsOnly)
-	float TrackMaxDrvingForce = 1040000.f;//  TODO: find a sensible default value.
+	float TrackMaxDrvingForce = 20000000.0f;//  TODO: find a sensible default value.
 };

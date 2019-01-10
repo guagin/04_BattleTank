@@ -51,7 +51,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LanchSpeed) {
 		ESuggestProjVelocityTraceOption::Type::DoNotTrace,
 		ResponseParam,
 		ActorsToIgnore,
-		true
+		false
 	);
 	if (bHaveAimSolution) {
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
