@@ -31,23 +31,23 @@ protected:
 public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	UFUNCTION(BlueprintCallable, Category = Setup)
+	UFUNCTION(BlueprintCallable, Category = "Setup")
 	void SetBarrelReference(UTankBarrel* Barrel);
-	UFUNCTION(BlueprintCallable, Category = Setup)
+	UFUNCTION(BlueprintCallable, Category = "Setup")
 	void SetTurretReference(UTankTurret* Turret);
-	UFUNCTION(BlueprintCallable, Category = Firing)
+	UFUNCTION(BlueprintCallable, Category = "Firing")
 	void Fire();
 	void AimAt(FVector HitLocation);
 private:
-	UPROPERTY(EditAnyWhere, Category = Firing)
+	UPROPERTY(EditAnyWhere, Category = "Firing")
 	float LaunchSpeed = 4000;
 
-	UPROPERTY(EditAnyWhere, Category = Setup)
+	UPROPERTY(EditAnyWhere, Category = "Setup")
 	TSubclassOf<AProjectile> ProjectileBlueprint;
 
 	UTankBarrel* Barrel = nullptr;
 
-	UPROPERTY(EditAnyWhere, Category = Firing)
+	UPROPERTY(EditAnyWhere, Category = "Firing")
 	float ReloadTimeInSeconds = 3.f;
 
 	double LastFireTime = 0;

@@ -22,7 +22,7 @@ void ATankAIController::Tick(float DeltaTime) {
 		Tank->Fire(); // TODO: dont fire every frame.
 	}
 	else {
-		UE_LOG(LogTemp, Warning, TEXT("cant get any player tank."));
+		//UE_LOG(LogTemp, Warning, TEXT("cant get any player tank."));
 	}
 		
 }

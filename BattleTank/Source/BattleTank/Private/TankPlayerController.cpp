@@ -42,7 +42,7 @@ bool ATankPlayerController::GetSightRayHitLocation(OUT FVector& HitLocation) con
 			HitLocation = HitResult.Location;
 		}
 		else {
-			UE_LOG(LogTemp, Warning, TEXT("aiming is missing"));
+			//UE_LOG(LogTemp, Warning, TEXT("aiming is missing"));
 		}
 	}
 	
