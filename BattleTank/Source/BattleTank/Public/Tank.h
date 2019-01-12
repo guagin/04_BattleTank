@@ -30,11 +30,6 @@ protected:
 
 public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
-	UFUNCTION(BlueprintCallable, Category = "Setup")
-	void SetBarrelReference(UTankBarrel* Barrel);
-	UFUNCTION(BlueprintCallable, Category = "Setup")
-	void SetTurretReference(UTankTurret* Turret);
 	UFUNCTION(BlueprintCallable, Category = "Firing")
 	void Fire();
 	void AimAt(FVector HitLocation);

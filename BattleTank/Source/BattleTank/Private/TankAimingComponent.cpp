@@ -14,8 +14,6 @@ UTankAimingComponent::UTankAimingComponent()
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = false;
-
-	// ...
 }
 
 
@@ -23,13 +21,23 @@ UTankAimingComponent::UTankAimingComponent()
 void UTankAimingComponent::BeginPlay()
 {
 	Super::BeginPlay();
+}
 
-	// ...
-	
+void UTankAimingComponent::Initialise(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet) {
+	if (!BarrelToSet || !TurretToSet) { 
+		UE_LOG(LogTemp, Warning, TEXT("aiming component initialise failed."));
+	}
+	Barrel = BarrelToSet;
+	Turret = TurretToSet;
 }
 
 void UTankAimingComponent::AimAt(FVector HitLocation, float LanchSpeed) {
-	if (!Barrel) {
+	if (Barrel == nullptr) {
+		UE_LOG(LogTemp, Warning, TEXT("Barrel not initilise yet."));
+		return; 
+	}
+	if (Turret == nullptr) {
+		UE_LOG(LogTemp, Warning, TEXT("Turret not initilise yet."));
 		return;
 	}
 	FString TankName = GetOwner()->GetName();
@@ -76,13 +84,4 @@ void UTankAimingComponent::MoveBarrelToward(FVector AimDirection) {
 	else {
 		Turret->Rotate(DeltaRotator.Yaw);
 	}
-	
-}
-
-void UTankAimingComponent::SetBarrelReference(UTankBarrel* BarrelToSet) {
-	Barrel = BarrelToSet;	
-}
-
-void UTankAimingComponent::SetTurretReference(UTankTurret* TurretToSet) {
-	Turret = TurretToSet;
 }
