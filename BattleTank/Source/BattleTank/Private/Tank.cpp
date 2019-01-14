@@ -12,6 +12,7 @@ ATank::ATank()
 {
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
+	UE_LOG(LogTemp, Warning, TEXT("da5017db: C++ Tank constructed."));
 }
 
 // Called when the game starts or when spawned
@@ -19,7 +20,9 @@ void ATank::BeginPlay()
 {
 	Super::BeginPlay();
 	TankAimingComponent = FindComponentByClass<UTankAimingComponent>();
+	
 	Barrel = FindComponentByClass<UTankBarrel>();
+	UE_LOG(LogTemp, Warning, TEXT("da5017db: C++¡@Tank BeginPlay."));
 }
 
 

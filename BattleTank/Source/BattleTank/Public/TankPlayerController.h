@@ -20,10 +20,14 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 public:
 	void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
+	void FoundAimingComponent(UTankAimingComponent* AminingCompoRef);
 protected:
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 	ATank* GetControlledTank() const;
 private:
+
 
 	void AimTowardCrosshair();
 	bool GetSightRayHitLocation(OUT FVector& HitLocation) const;

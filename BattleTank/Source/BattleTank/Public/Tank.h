@@ -32,6 +32,7 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	UFUNCTION(BlueprintCallable, Category = "Firing")
 	void Fire();
+
 	void AimAt(FVector HitLocation);
 private:
 	UPROPERTY(EditAnyWhere, Category = "Firing")

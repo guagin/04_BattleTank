@@ -7,8 +7,9 @@
 #include "TankAIController.generated.h"
 
 class ATank;
+class UTankAimingComponent;
 /**
- * 
+ * Responsilbe for helper the player aim.
  */
 UCLASS()
 class BATTLETANK_API ATankAIController : public AAIController

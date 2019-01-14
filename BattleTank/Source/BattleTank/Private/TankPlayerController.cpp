@@ -5,10 +5,17 @@
 #include "Engine/World.h"
 #include "Engine/EngineTypes.h"
 #include "DrawDebugHelpers.h"
+#include "TankAimingComponent.h"
 
 void ATankPlayerController::BeginPlay() {
 	Super::BeginPlay();
-	ATank* Tank = GetControlledTank();	
+	auto AimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
+	if (AimingComponent) {
+		FoundAimingComponent(AimingComponent);
+	}
+	else {
+		UE_LOG(LogTemp, Warning, TEXT("da5017db: Player controller cant find aiming component at begin play"));
+	}
 }
 
 
@@ -48,7 +55,7 @@ bool ATankPlayerController::GetSightRayHitLocation(OUT FVector& HitLocation) con
 	
 	
 	// Line-Tace along that look direction, and see what we hit( up to max range).
-
+	
 	return true;
 }
 

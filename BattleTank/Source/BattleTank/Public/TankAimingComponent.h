@@ -33,7 +33,7 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 	UPROPERTY(BlueprintReadOnly, Category = "State")
-	EFiringStatus FiringStatus = EFiringStatus::Aiming;
+	EFiringStatus FiringStatus = EFiringStatus::Locked;
 
 public:	
 	void AimAt(FVector, float);
