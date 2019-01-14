@@ -9,7 +9,7 @@
 
 void ATankPlayerController::BeginPlay() {
 	Super::BeginPlay();
-	AimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
+	AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
 	if (ensure(AimingComponent)) {
 		FoundAimingComponent(AimingComponent);
 	}
@@ -25,7 +25,7 @@ void ATankPlayerController::Tick(float DeltaTime) {
 }
 
 void ATankPlayerController::AimTowardCrosshair(){
-	if(!ensure(GetControlledTank())){return;}
+	if(!ensure(GetPawn())){return;}
 	
 	FVector HitLocation; //Out Parameter.
 
@@ -76,7 +76,7 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector Direction,FHitResul
 	FCollisionQueryParams CollisionQueryParams = FCollisionQueryParams(
 		EName::NAME_None,
 		false,	
-		GetControlledTank()
+		GetPawn()
 	);
 
 	return GetWorld()->LineTraceSingleByChannel(
@@ -86,8 +86,4 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector Direction,FHitResul
 		ECollisionChannel::ECC_Visibility,
 		CollisionQueryParams
 	);
-}
-
-ATank* ATankPlayerController::GetControlledTank() const {
-	return Cast<ATank>(GetPawn());
 }
