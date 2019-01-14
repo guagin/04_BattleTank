@@ -28,11 +28,10 @@ void ATankPlayerController::AimTowardCrosshair(){
 	if(!ensure(GetPawn())){return;}
 	
 	FVector HitLocation; //Out Parameter.
-
-	if (GetSightRayHitLocation(HitLocation)) {// has side effect. is going to line trace.
+	bool bGotHitLocation = GetSightRayHitLocation(HitLocation);
+	if (bGotHitLocation) {// has side effect. is going to line trace.
 		AimingComponent->AimAt(HitLocation);
 	}
-
 }
 
 // get world location of linetrace through corsshair, true if hits landscape.
@@ -46,16 +45,12 @@ bool ATankPlayerController::GetSightRayHitLocation(OUT FVector& HitLocation) con
 		FHitResult HitResult;
 		if (GetLookVectorHitLocation(CameraWorldDirection, HitResult)) {
 			HitLocation = HitResult.Location;
-		}
-		else {
-			//UE_LOG(LogTemp, Warning, TEXT("aiming is missing"));
+			return true;
 		}
 	}
 	
 	
-	// Line-Tace along that look direction, and see what we hit( up to max range).
-	
-	return true;
+	return false;
 }
 
 // De-poject the screen projection of corsshair to a world direction.
