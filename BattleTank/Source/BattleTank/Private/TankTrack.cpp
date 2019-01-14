@@ -5,15 +5,25 @@
 
 UTankTrack::UTankTrack() {
 	PrimaryComponentTick.bCanEverTick = true;
+	
 }
 
+
+void UTankTrack::BeginPlay() {
+	Super::BeginPlay();
+	UE_LOG(LogTemp, Warning, TEXT("BeginPlay"));
+	OnComponentHit.AddDynamic(this, &UTankTrack::OnHit);
+}
+
+void UTankTrack::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit) {
+	UE_LOG(LogTemp,Warning,TEXT("Get hit."));
+}
 
 void UTankTrack::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) {
 	
 	
 	// calcualte the splippage speed;
 	float SplippageSpeed = FVector::DotProduct(GetRightVector(), GetComponentVelocity());
-	UE_LOG(LogTemp, Warning, TEXT("%f "), SplippageSpeed);
 	// work out the required acceleration this fame to correct;
 	auto CorrectAcceleration = -SplippageSpeed / (DeltaTime) * GetRightVector();
 
