@@ -32,11 +32,11 @@ void UTankAimingComponent::Initialise(UTankBarrel* BarrelToSet, UTankTurret* Tur
 }
 
 void UTankAimingComponent::AimAt(FVector HitLocation, float LanchSpeed) {
-	if (Barrel == nullptr) {
+	if (!ensure(Barrel)) {
 		UE_LOG(LogTemp, Warning, TEXT("Barrel not initilise yet."));
 		return; 
 	}
-	if (Turret == nullptr) {
+	if (!ensure(Turret)) {
 		UE_LOG(LogTemp, Warning, TEXT("Turret not initilise yet."));
 		return;
 	}

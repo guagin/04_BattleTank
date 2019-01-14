@@ -16,13 +16,13 @@ void ATankAIController::Tick(float DeltaTime) {
 	ATank* PlayerTank = Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());
 	auto Tank = Cast<ATank>(GetPawn());
 
-	if (PlayerTank) {
+	if (ensure(PlayerTank)) {
 		MoveToActor(PlayerTank, AcceptanceRadius); 
 		Tank->AimAt(PlayerTank->GetActorLocation());
-		Tank->Fire(); // TODO: dont fire every frame.
+		Tank->Fire(); 
 	}
 	else {
-		//UE_LOG(LogTemp, Warning, TEXT("cant get any player tank."));
+		UE_LOG(LogTemp, Warning, TEXT("cant get any player tank."));
 	}
 		
 }
