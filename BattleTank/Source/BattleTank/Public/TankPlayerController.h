@@ -8,7 +8,7 @@
 #include "TankPlayerController.generated.h"
 
 class ATank;
-
+class UTankAimingComponent;
 /**
  * 
  */
@@ -40,4 +40,5 @@ private:
 	float CrosshairYLocation = 0.3333f;
 	UPROPERTY(EditAnyWhere)
 	float LineTraceRange = 1000000.f;
+	UTankAimingComponent* AimingComponent = nullptr;
 };

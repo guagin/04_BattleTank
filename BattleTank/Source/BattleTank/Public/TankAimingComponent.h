@@ -36,11 +36,13 @@ protected:
 	EFiringStatus FiringStatus = EFiringStatus::Locked;
 
 public:	
-	void AimAt(FVector, float);
+	void AimAt(FVector);
 
 private:
 	UTankBarrel* Barrel = nullptr;
 	UTankTurret* Turret = nullptr;
 
 	void MoveBarrelToward(FVector);
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+	float LaunchSpeed = 4000;
 };

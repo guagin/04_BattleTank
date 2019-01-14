@@ -32,7 +32,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Firing")
 	void Fire();
 
-	void AimAt(FVector HitLocation);
 private:
 	// TODO: remove once firing is move to aiming component.
 	UPROPERTY(EditAnyWhere, Category = "Firing")

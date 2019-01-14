@@ -22,4 +22,6 @@ public:
 
 private:
 	float AcceptanceRadius = 3000;
+	UTankAimingComponent* AimingComponent = nullptr;
+	ATank* Tank;
 };
