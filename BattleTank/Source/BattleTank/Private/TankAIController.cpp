@@ -22,7 +22,6 @@ void ATankAIController::Tick(float DeltaTime) {
 		Tank->Fire(); 
 	}
 	else {
-		UE_LOG(LogTemp, Warning, TEXT("cant get any player tank."));
 	}
 		
 }

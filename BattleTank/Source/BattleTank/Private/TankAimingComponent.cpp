@@ -1,7 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "TankAimingComponent.h"
-#include "Tank.h"
 #include "TankBarrel.h"
 #include "TankTurret.h"
 #include "Engine/Classes/Components/StaticMeshComponent.h"
@@ -25,7 +24,6 @@ void UTankAimingComponent::BeginPlay()
 
 void UTankAimingComponent::Initialise(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet) {
 	if (!BarrelToSet || !TurretToSet) { 
-		UE_LOG(LogTemp, Warning, TEXT("aiming component initialise failed."));
 	}
 	Barrel = BarrelToSet;
 	Turret = TurretToSet;
@@ -33,11 +31,9 @@ void UTankAimingComponent::Initialise(UTankBarrel* BarrelToSet, UTankTurret* Tur
 
 void UTankAimingComponent::AimAt(FVector HitLocation, float LanchSpeed) {
 	if (!ensure(Barrel)) {
-		UE_LOG(LogTemp, Warning, TEXT("Barrel not initilise yet."));
 		return; 
 	}
 	if (!ensure(Turret)) {
-		UE_LOG(LogTemp, Warning, TEXT("Turret not initilise yet."));
 		return;
 	}
 	FString TankName = GetOwner()->GetName();
@@ -68,7 +64,6 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LanchSpeed) {
 }
 
 void UTankAimingComponent::MoveBarrelToward(FVector AimDirection) {
-	// Work-out different between aimdirection and current barrel rotation.
 	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
 	auto AimAsRotator = AimDirection.Rotation();
 	auto DeltaRotator = AimAsRotator - BarrelRotator;
