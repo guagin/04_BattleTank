@@ -20,4 +20,8 @@ public:
 	// Max force per trank, in Newtons.
 	UPROPERTY(EditDefaultsOnly)
 	float TrackMaxDrvingForce = 20000000.0f;//  TODO: find a sensible default value.
+
+private:
+	UTankTrack();
+	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
 };
