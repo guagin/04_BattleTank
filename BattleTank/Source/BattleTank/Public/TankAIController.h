@@ -22,7 +22,7 @@ public:
 
 private:
 	UPROPERTY(EditDefaultsOnly, Category="Setup")
-	float AcceptanceRadius = 3000;
+	float AcceptanceRadius = 10000;
 	UTankAimingComponent* AimingComponent = nullptr;
 	ATank* Tank;
 };
