@@ -15,22 +15,21 @@ void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool
 	
 	auto ForwardThrow = FVector::DotProduct(TankFoward, AIFowardIntention);
 	IntendMoveForward(ForwardThrow);
-	
-
 	auto RightThrow = FVector::CrossProduct(TankFoward, AIFowardIntention).Z;
+
+	UE_LOG(LogTemp, Warning, TEXT("%s %f %f"), *GetName(), ForwardThrow, RightThrow);
 	IntendTurnRight(RightThrow);
 }
 
 void UTankMovementComponent::IntendMoveForward(float Throw) {
-	if (!ensure(LeftTrack || RightTrack)) { return; }
-	if (Throw == 0) { return; }
+	if (!ensure(LeftTrack) && !ensure(RightTrack)) { return; }
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(Throw);
 }
 
 void UTankMovementComponent::IntendTurnRight(float Throw) {
-	if (!ensure(LeftTrack || RightTrack)) { return; }
-	if (Throw == 0) { return; }
+	if (!ensure(LeftTrack) &&  !ensure(RightTrack)) { return; }
+	
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(-Throw);
 }

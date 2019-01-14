@@ -4,7 +4,7 @@
 #include "Tank.h"
 
 UTankTrack::UTankTrack() {
-	PrimaryComponentTick.bCanEverTick = true;
+	PrimaryComponentTick.bCanEverTick = false;
 	
 }
 
@@ -16,27 +16,36 @@ void UTankTrack::BeginPlay() {
 }
 
 void UTankTrack::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit) {
-	UE_LOG(LogTemp,Warning,TEXT("Get hit."));
+	
+	// Drive the tracks
+	// Apply Sideways force.
+	
+	ApplySidewaysForce();
+	DriveTrack();
+	CurrentThrottle = 0;
 }
 
-void UTankTrack::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) {
-	
-	
+
+void UTankTrack::ApplySidewaysForce() {
 	// calcualte the splippage speed;
 	float SplippageSpeed = FVector::DotProduct(GetRightVector(), GetComponentVelocity());
+	auto DeltaTime = GetWorld()->DeltaTimeSeconds;
 	// work out the required acceleration this fame to correct;
-	auto CorrectAcceleration = -SplippageSpeed / (DeltaTime) * GetRightVector();
+	auto CorrectAcceleration = -SplippageSpeed / (DeltaTime)* GetRightVector();
 
 	auto TankRoot = Cast<UPrimitiveComponent>(GetOwner()->GetRootComponent());
 	// calculate and apply sidde way for ( f= ma);
-	auto CorrectionForce =(CorrectAcceleration * TankRoot->GetMass())/2;
+	auto CorrectionForce = (CorrectAcceleration * TankRoot->GetMass()) / 2;
 	TankRoot->AddForce(CorrectionForce);
 }
 
 void UTankTrack::SetThrottle(float Throttle) {
+	CurrentThrottle = FMath::Clamp<float>(Throttle, -1, 1);
+}
+
+void UTankTrack::DriveTrack() {
 	
-	auto Name = GetName();
-	auto ForceApplied = GetForwardVector() * Throttle * TrackMaxDrvingForce;
+	auto ForceApplied = GetForwardVector() * CurrentThrottle * TrackMaxDrvingForce;
 	auto ForceLocation = GetComponentLocation();
 	auto TankRoot = Cast<UPrimitiveComponent>(GetOwner()->GetRootComponent());
 	TankRoot->AddForceAtLocation(ForceApplied, ForceLocation);
