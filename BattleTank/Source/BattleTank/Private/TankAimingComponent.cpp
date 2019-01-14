@@ -21,7 +21,6 @@ void UTankAimingComponent::BeginPlay(){
 }
 
 void UTankAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) {
-	UE_LOG(LogTemp, Warning, TEXT("TickComponent"));
 
 	if (!isReloaded()) {
 		FiringStatus = EFiringStatus::Reloading;
