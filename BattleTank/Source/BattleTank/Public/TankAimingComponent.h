@@ -45,8 +45,8 @@ public:
 private:
 	UTankBarrel* Barrel = nullptr;
 	UTankTurret* Turret = nullptr;
-
 	void MoveBarrelToward(FVector);
+	double LastFireTime = 0;
 
 	UPROPERTY(EditAnyWhere, Category = "Setup")
 	TSubclassOf<AProjectile> ProjectileBlueprint;
@@ -56,6 +56,4 @@ private:
 
 	UPROPERTY(EditAnyWhere, Category = "Firing")
 	float ReloadTimeInSeconds = 3.f;
-
-	double LastFireTime = 0;
 };
