@@ -31,8 +31,6 @@ void UTankAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickTy
 	else {
 		FiringStatus = EFiringStatus::Locked;
 	}
-	
-
 }
 
 bool UTankAimingComponent::IsBarrelMoving() const{
@@ -46,6 +44,11 @@ void UTankAimingComponent::Initialise(UTankBarrel* BarrelToSet, UTankTurret* Tur
 	}
 	Barrel = BarrelToSet;
 	Turret = TurretToSet;
+}
+
+
+EFiringStatus UTankAimingComponent::GetFiringStatus() const {
+	return FiringStatus;
 }
 
 void UTankAimingComponent::AimAt(FVector HitLocation) {

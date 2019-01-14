@@ -36,15 +36,19 @@ protected:
 	virtual void BeginPlay() override;
 	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
 
-	UPROPERTY(BlueprintReadOnly, Category = "State")
-	EFiringStatus FiringStatus = EFiringStatus::Reloading;
+
+
 
 public:	
+	UFUNCTION(BlueprintCallable, Category = "Firing Status")
+	EFiringStatus GetFiringStatus() const;
 	void AimAt(FVector);
 	UFUNCTION(BlueprintCallable, Category = "Firing")
 	void Fire();
 
 private:
+	EFiringStatus FiringStatus = EFiringStatus::Reloading;
+
 	UTankBarrel* Barrel = nullptr;
 	UTankTurret* Turret = nullptr;
 	void MoveBarrelToward(FVector);
