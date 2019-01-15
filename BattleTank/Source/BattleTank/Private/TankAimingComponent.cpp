@@ -21,8 +21,10 @@ void UTankAimingComponent::BeginPlay(){
 }
 
 void UTankAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) {
-
-	if (!isReloaded()) {
+	if (GetAmmo() == 0) {
+		FiringStatus = EFiringStatus::OutOfAmmo;
+	}
+	else if (!isReloaded()) {
 		FiringStatus = EFiringStatus::Reloading;
 	}
 	else if (IsBarrelMoving()) {
@@ -119,7 +121,12 @@ void UTankAimingComponent::Fire() {
 		Projectile->LaunchProjectile(LaunchSpeed);
 		LastFireTime = FPlatformTime::Seconds();
 		FiringStatus = EFiringStatus::Reloading;
+		Ammo-=1;
 	}
+}
+
+int32 UTankAimingComponent::GetAmmo() const{
+	return Ammo;
 }
 
 bool UTankAimingComponent::isReloaded() const {

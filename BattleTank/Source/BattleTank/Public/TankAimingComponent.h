@@ -11,7 +11,8 @@ UENUM()
 enum class EFiringStatus : uint8 {
 	Locked,
 	Aiming,
-	Reloading
+	Reloading,
+	OutOfAmmo,
 };
 
 // Forward Delaration.
@@ -36,15 +37,18 @@ protected:
 	virtual void BeginPlay() override;
 	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
 
-
-
-
 public:	
 	UFUNCTION(BlueprintCallable, Category = "Firing Status")
 	EFiringStatus GetFiringStatus() const;
+
 	void AimAt(FVector);
+
 	UFUNCTION(BlueprintCallable, Category = "Firing")
 	void Fire();
+
+	UFUNCTION(BlueprintCallable, Category = "Firing")
+	int32 GetAmmo() const;
+
 
 private:
 	EFiringStatus FiringStatus = EFiringStatus::Reloading;
@@ -63,7 +67,13 @@ private:
 
 	UPROPERTY(EditAnyWhere, Category = "Firing")
 	float ReloadTimeInSeconds = 3.f;
+
 	bool IsBarrelMoving() const;
+
 	FVector AimDirection;
+
 	bool isReloaded() const;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+	int32 Ammo = 3;
 };
