@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "GameFramework/ProjectileMovementComponent.h"
+#include "Engine/Classes/Particles/ParticleSystemComponent.h"
 #include "Projectile.generated.h"
 
 UCLASS()
@@ -19,6 +20,10 @@ public:
 protected:
 	UPROPERTY(EditAnyWhere)
 	UProjectileMovementComponent* ProjectileMovementComponent = nullptr;
+	UPROPERTY(VisibleAnyWhere, Category="Component")
+	UStaticMeshComponent* CollisionMesh = nullptr;
+	UPROPERTY(VisibleAnyWhere, Category="Component")
+	UParticleSystemComponent* LaunchBlast = nullptr;
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	
