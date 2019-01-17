@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Engine/Classes/Particles/ParticleSystemComponent.h"
+#include "Engine/Classes/PhysicsEngine/RadialForceComponent.h"
 #include "Projectile.generated.h"
 
 UCLASS()
@@ -26,6 +27,8 @@ protected:
 	UParticleSystemComponent* LaunchBlast = nullptr;
 	UPROPERTY(VisibleAnyWhere, Category = "Component")
 	UParticleSystemComponent* ImpactBlast = nullptr;
+	UPROPERTY(VisibleAnyWhere, Category = "Component")
+	URadialForceComponent* ExplosionForce = nullptr;
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	
