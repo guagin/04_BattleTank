@@ -4,6 +4,7 @@
 #include "Engine/World.h"
 #include "Engine/Classes/Particles/ParticleSystemComponent.h"
 #include "Engine/Classes/Components/StaticMeshComponent.h"
+#include "Engine/Public/TimerManager.h"
 
 // Sets default values
 AProjectile::AProjectile()
@@ -50,5 +51,16 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, U
 	ImpactBlast->Activate();
 	ExplosionForce->FireImpulse();
 	UE_LOG(LogTemp, Warning, TEXT("Explosion!"));
+	SetRootComponent(ImpactBlast);
+	CollisionMesh->DestroyComponent();
+
+	FTimerHandle TimerHandler;
+	if (!TimerHandler.IsValid()) {
+		GetWorld()->GetTimerManager().SetTimer(TimerHandler, this, &AProjectile::OnTimerExpired, DestroyDelay, false);
+	}
 }
 
+void AProjectile::OnTimerExpired() {
+	UE_LOG(LogTemp, Warning, TEXT("projectile destroyed."));
+	Destroy();
+}

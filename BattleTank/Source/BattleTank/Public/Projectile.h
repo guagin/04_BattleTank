@@ -38,4 +38,8 @@ public:
 private:
 	UFUNCTION(BlueprintCallable, Category = "Hit")
 	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+	float DestroyDelay = 10.f;
+
+	void OnTimerExpired();
 };
