@@ -40,6 +40,8 @@ private:
 	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 	float DestroyDelay = 10.f;
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+	float Damage = 20.f;
 
 	void OnTimerExpired();
 };

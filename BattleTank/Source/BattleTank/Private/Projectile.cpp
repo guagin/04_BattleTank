@@ -5,6 +5,8 @@
 #include "Engine/Classes/Particles/ParticleSystemComponent.h"
 #include "Engine/Classes/Components/StaticMeshComponent.h"
 #include "Engine/Public/TimerManager.h"
+#include "Engine/Classes/Kismet/GameplayStatics.h"
+#include "Engine/Classes/GameFramework/DamageType.h"
 
 // Sets default values
 AProjectile::AProjectile()
@@ -53,6 +55,15 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, U
 	UE_LOG(LogTemp, Warning, TEXT("Explosion!"));
 	SetRootComponent(ImpactBlast);
 	CollisionMesh->DestroyComponent();
+
+	UGameplayStatics::ApplyRadialDamage(
+		this,
+		Damage,
+		GetActorLocation(),
+		ExplosionForce->Radius,
+		UDamageType::StaticClass(),
+		TArray<AActor*>() // damage all actors.
+	);
 
 	FTimerHandle TimerHandler;
 	if (!TimerHandler.IsValid()) {
