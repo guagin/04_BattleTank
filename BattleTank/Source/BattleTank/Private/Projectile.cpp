@@ -52,7 +52,6 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, U
 	LaunchBlast->Deactivate();
 	ImpactBlast->Activate();
 	ExplosionForce->FireImpulse();
-	UE_LOG(LogTemp, Warning, TEXT("Explosion!"));
 	SetRootComponent(ImpactBlast);
 	CollisionMesh->DestroyComponent();
 
@@ -72,6 +71,5 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, U
 }
 
 void AProjectile::OnTimerExpired() {
-	UE_LOG(LogTemp, Warning, TEXT("projectile destroyed."));
 	Destroy();
 }

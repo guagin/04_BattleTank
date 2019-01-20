@@ -82,3 +82,17 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector Direction,FHitResul
 		CollisionQueryParams
 	);
 }
+
+void ATankPlayerController::SetPawn(APawn* PawnIn) {
+	Super::SetPawn(PawnIn);
+	
+	if (PawnIn) {
+		auto PossessedTank = Cast<ATank>(PawnIn);
+		if (!ensure(PossessedTank)) { return; }
+		PossessedTank->OnDeath.AddUniqueDynamic(this, &ATankPlayerController::OnTankDeath);
+	}
+}
+
+void ATankPlayerController::OnTankDeath() {
+	UE_LOG(LogTemp, Warning, TEXT("%s dead"), *GetName());
+}

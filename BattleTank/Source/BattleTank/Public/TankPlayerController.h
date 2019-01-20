@@ -23,7 +23,9 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
 	void FoundAimingComponent(UTankAimingComponent* AminingCompoRef);
-
+	virtual void SetPawn(APawn* PawnIn) override;
+	UFUNCTION(BlueprintCallable, Category="Event")
+	void OnTankDeath();
 private:
 
 

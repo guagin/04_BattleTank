@@ -18,8 +18,10 @@ float ATank::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEve
 	
 	int32 DamagePoints = FPlatformMath::RoundToInt(DamageAmount);
 	float DamageToApply = FMath::Clamp<float>(DamagePoints, 0, CurrentHealth);
-	UE_LOG(LogTemp, Warning, TEXT("%s take damage amount: %f, dmage to apply: %f health: %f"), *GetName(), DamageAmount, DamageToApply, CurrentHealth);
 	CurrentHealth -= DamageToApply;
+	if (CurrentHealth == 0) {
+		OnDeath.Broadcast();
+	}
 	return DamageToApply;
 }
 

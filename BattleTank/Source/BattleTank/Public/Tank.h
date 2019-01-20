@@ -9,6 +9,8 @@
 // Forward Delaration.
 class UTankAimingComponent;
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FDeathDelegate);
+
 UCLASS()
 class BATTLETANK_API ATank : public APawn
 {
@@ -18,6 +20,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Health")
 	float GetHealthPercent() const;
 
+	FDeathDelegate OnDeath;
+
 	virtual float TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
 private:
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
@@ -25,6 +29,8 @@ private:
 
 	UPROPERTY(VisibleAnyWhere, Category = "Health")
 	float CurrentHealth = StartingHealth;
+	
+	
 
 	ATank();
 };
