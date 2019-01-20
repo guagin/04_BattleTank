@@ -17,6 +17,8 @@ class BATTLETANK_API ATank : public APawn
 	GENERATED_BODY()
 
 public:
+	void BeginPlay() override;
+
 	UFUNCTION(BlueprintCallable, Category = "Health")
 	float GetHealthPercent() const;
 
@@ -28,8 +30,7 @@ private:
 	float StartingHealth = 100.f;
 
 	UPROPERTY(VisibleAnyWhere, Category = "Health")
-	float CurrentHealth = StartingHealth;
-	
+	float CurrentHealth = 0.f;
 	
 
 	ATank();
