@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "Components/StaticMeshComponent.h"
 #include "TankTrack.generated.h"
-
+class ASprungWheel;
 /**
  * TrankTrack is used to set maximun driving force, and apply froces to the tank.
  */

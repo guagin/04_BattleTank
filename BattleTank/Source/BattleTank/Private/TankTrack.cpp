@@ -2,10 +2,11 @@
 
 #include "TankTrack.h"
 #include "Tank.h"
+#include "SprungWheel.h"
 
 UTankTrack::UTankTrack() {
 	PrimaryComponentTick.bCanEverTick = false;
-	
+
 }
 
 
@@ -18,7 +19,6 @@ void UTankTrack::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UP
 	
 	// Drive the tracks
 	// Apply Sideways force.
-	
 	ApplySidewaysForce();
 	DriveTrack();
 	CurrentThrottle = 0;
