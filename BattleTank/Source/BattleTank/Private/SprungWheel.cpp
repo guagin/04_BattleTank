@@ -14,11 +14,6 @@ ASprungWheel::ASprungWheel()
 
 	Srping = CreateDefaultSubobject<UPhysicsConstraintComponent>(FName("Srping"));
 	SetRootComponent(Srping);
-	
-
-	Mass = CreateDefaultSubobject<UStaticMeshComponent>(FName("Mass"));
-	Mass->SetupAttachment(Srping);
-
 
 	Wheel = CreateDefaultSubobject<UStaticMeshComponent>(FName("Wheel"));
 	Wheel->SetupAttachment(Srping);
@@ -31,10 +26,14 @@ void ASprungWheel::BeginPlay() {
 	if (parent) {
 		UE_LOG(LogTemp, Warning, TEXT("%s"), *parent->GetName());
 	}
-	else {
-		UE_LOG(LogTemp, Warning, TEXT("null"));
-	}
-
+	UPrimitiveComponent* BodyRoot = Cast<UPrimitiveComponent>(parent->GetRootComponent());
+	if (!BodyRoot) { return; }
+	Srping->SetConstrainedComponents(
+		BodyRoot,
+		NAME_None,
+		Wheel,
+		NAME_None
+	);
 	
 }
 // Called every frame
