@@ -27,9 +27,15 @@ ASprungWheel::ASprungWheel()
 // Called when the game starts or when spawned
 void ASprungWheel::BeginPlay() {
 	Super::BeginPlay();
-/*
-	GetAttachParentActor();
-	AttachToComponent();*/
+	auto parent = GetAttachParentActor();
+	if (parent) {
+		UE_LOG(LogTemp, Warning, TEXT("%s"), *parent->GetName());
+	}
+	else {
+		UE_LOG(LogTemp, Warning, TEXT("null"));
+	}
+
+	
 }
 // Called every frame
 void ASprungWheel::Tick(float DeltaTime)
