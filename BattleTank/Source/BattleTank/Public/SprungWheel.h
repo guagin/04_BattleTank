@@ -4,7 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Components/SphereComponent.h"
 #include "SprungWheel.generated.h"
+
 
 class UPhysicsConstraintComponent;
 
@@ -25,8 +27,11 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 	UPROPERTY(VisibleAnyWhere, Category="Components")
-	UPhysicsConstraintComponent* Srping = nullptr;
+	UPhysicsConstraintComponent* Spring = nullptr;
 	UPROPERTY(VisibleAnyWhere, Category = "Components")
-	UStaticMeshComponent* Wheel = nullptr;
-
+	USphereComponent* Wheel = nullptr;
+	UPROPERTY(VisibleAnyWhere, Category = "Component")
+	USphereComponent* Axle = nullptr;
+	UPROPERTY(VisibleAnyWhere, Category = "Component")
+	UPhysicsConstraintComponent* AxleWheelConstraint = nullptr;
 };

@@ -12,24 +12,37 @@ ASprungWheel::ASprungWheel()
 	PrimaryActorTick.bCanEverTick = true;
 	// to create the same hierarchy to them blueprint one.
 
-	Srping = CreateDefaultSubobject<UPhysicsConstraintComponent>(FName("Srping"));
-	SetRootComponent(Srping);
+	Spring = CreateDefaultSubobject<UPhysicsConstraintComponent>(FName("Srping"));
+	SetRootComponent(Spring);
 
-	Wheel = CreateDefaultSubobject<UStaticMeshComponent>(FName("Wheel"));
-	Wheel->SetupAttachment(Srping);
+	Axle = CreateDefaultSubobject<USphereComponent>(FName("Axle"));
+	Axle->SetupAttachment(Spring);
+
+	AxleWheelConstraint = CreateDefaultSubobject<UPhysicsConstraintComponent>(FName("Axle Wheel Constraints"));
+	AxleWheelConstraint->SetupAttachment(Axle);
+
+	Wheel = CreateDefaultSubobject<USphereComponent>(FName("Wheel"));
+	Wheel->SetupAttachment(Axle);
 }
 
 // Called when the game starts or when spawned
 void ASprungWheel::BeginPlay() {
 	Super::BeginPlay();
 	auto parent = GetAttachParentActor();
-	if (parent) {
-		UE_LOG(LogTemp, Warning, TEXT("%s"), *parent->GetName());
+	if (!parent) {
+		return;
 	}
+	UE_LOG(LogTemp, Warning, TEXT("%s"), *parent->GetName());
 	UPrimitiveComponent* BodyRoot = Cast<UPrimitiveComponent>(parent->GetRootComponent());
 	if (!BodyRoot) { return; }
-	Srping->SetConstrainedComponents(
+	Spring->SetConstrainedComponents(
 		BodyRoot,
+		NAME_None,
+		Axle,
+		NAME_None
+	);
+	AxleWheelConstraint->SetConstrainedComponents(
+		Axle,
 		NAME_None,
 		Wheel,
 		NAME_None
