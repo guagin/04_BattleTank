@@ -25,6 +25,11 @@ ASprungWheel::ASprungWheel()
 	Wheel->SetupAttachment(Axle);
 }
 
+void ASprungWheel::AddDrivingForce(float ForceMagnitude)
+{
+	Wheel->AddForce(Axle->GetForwardVector() * ForceMagnitude);
+}
+
 // Called when the game starts or when spawned
 void ASprungWheel::BeginPlay() {
 	Super::BeginPlay();

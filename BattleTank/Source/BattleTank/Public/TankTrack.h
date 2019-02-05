@@ -23,11 +23,10 @@ public:
 
 private:
 	UTankTrack();
-	void DriveTrack();
-	void ApplySidewaysForce();
+	void DriveTrack(float CurrentThrottle);
+	
 	virtual void BeginPlay() override;
-	UFUNCTION(BlueprintCallable, Category="Hit")
-	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 
-	float CurrentThrottle = 0.f;
+	TArray<ASprungWheel*> GetWheels() const;
+
 };
