@@ -39,7 +39,6 @@ void USpawnPoint::TickComponent(float DeltaTime, ELevelTick TickType, FActorComp
 // may return nullptr.
 AActor* USpawnPoint::GetSpawnedActor() const
 {
-	UE_LOG(LogTemp, Warning, TEXT("SpawnPoint spawn: %s"), *SpawnedActor->GetName());
 	return SpawnedActor;
 }
 

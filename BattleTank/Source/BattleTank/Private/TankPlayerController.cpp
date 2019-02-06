@@ -9,12 +9,11 @@
 
 void ATankPlayerController::BeginPlay() {
 	Super::BeginPlay();
+	auto Pawn = GetPawn();
+	if (!GetPawn()) { return; }
 	AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
-	if (ensure(AimingComponent)) {
-		FoundAimingComponent(AimingComponent);
-	}
-	else {
-	}
+	if (!AimingComponent) {return;}
+	FoundAimingComponent(AimingComponent);
 }
 
 
@@ -94,6 +93,5 @@ void ATankPlayerController::SetPawn(APawn* PawnIn) {
 }
 
 void ATankPlayerController::OnTankDeath() {
-	UE_LOG(LogTemp, Warning, TEXT("%s dead"), *GetName());
 	StartSpectatingOnly();
 }

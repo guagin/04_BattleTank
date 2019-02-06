@@ -26,6 +26,12 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+private:
+	void SetupConstraint();
+	UFUNCTION()
+	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
+	void ApplyForce();
+
 	UPROPERTY(VisibleAnyWhere, Category="Components")
 	UPhysicsConstraintComponent* Spring = nullptr;
 	UPROPERTY(VisibleAnyWhere, Category = "Components")
@@ -34,4 +40,5 @@ public:
 	USphereComponent* Axle = nullptr;
 	UPROPERTY(VisibleAnyWhere, Category = "Component")
 	UPhysicsConstraintComponent* AxleWheelConstraint = nullptr;
+	float TotalForceMagnitudeThisFrame;
 };
