@@ -70,7 +70,6 @@ void ASprungWheel::ApplyForce()
 {
 	Wheel->AddForce(Axle->GetForwardVector() * TotalForceMagnitudeThisFrame);
 	auto force = Axle->GetForwardVector() * TotalForceMagnitudeThisFrame;
-	UE_LOG(LogTemp, Warning, TEXT("force: %s"), *force.ToString());
 }
 
 
@@ -79,7 +78,6 @@ void ASprungWheel::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	if (GetWorld()->TickGroup == TG_PostPhysics) {
-		UE_LOG(LogTemp, Warning, TEXT("%s: TotalForceMagnitudeThisFrame: %f"), *GetName(),TotalForceMagnitudeThisFrame);
 		TotalForceMagnitudeThisFrame = 0;
 		
 	}
